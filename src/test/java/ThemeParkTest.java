@@ -2,6 +2,7 @@ import attractions.Dodgems;
 import attractions.Park;
 import attractions.Playground;
 import attractions.RollerCoaster;
+import behaviours.ISecurity;
 import org.junit.Before;
 import org.junit.Test;
 import people.Visitor;
@@ -23,10 +24,11 @@ public class ThemeParkTest {
     IceCreamStall iceCreamStall;
     TobaccoStall tobaccoStall;
     Visitor visitor;
+    ISecurity check;
 
     @Before
     public void setUp(){
-        themePark = new ThemePark("M&D's");
+        themePark = new ThemePark("M&D's", null);
         dodgems = new Dodgems("Bumper Cars", 5);
         park = new Park("Leafy Meadows", 9);
         playground = new Playground("Fun Zone", 7);
@@ -76,6 +78,7 @@ public class ThemeParkTest {
         themePark.addToEverything(candyflossStall);
         themePark.addToEverything(iceCreamStall);
         themePark.addToEverything(tobaccoStall);
+        System.out.println(themePark.getEverything());
         assertEquals(5, themePark.reviewsReturn(dodgems).get("Bumper Cars"));
         assertEquals(9, themePark.reviewsReturn(park).get("Leafy Meadows"));
         assertEquals(7, themePark.reviewsReturn(playground).get("Fun Zone"));
@@ -83,6 +86,24 @@ public class ThemeParkTest {
         assertEquals(0, themePark.reviewsReturn(candyflossStall).get("Candy Land"));
         assertEquals(0, themePark.reviewsReturn(iceCreamStall).get("Dream Cones"));
         assertEquals(0, themePark.reviewsReturn(tobaccoStall).get("Jacks Drum"));
+    }
+
+    @Test
+    public void canGetClearancesSize(){
+        assertEquals(0, themePark.getAllClearancesSize());
+    }
+
+    @Test
+    public void testAllAllowedFor(){
+        themePark.addToEverything(dodgems);
+        themePark.addToEverything(park);
+        themePark.addToEverything(playground);
+        themePark.addToEverything(rollerCoaster);
+        themePark.addToEverything(candyflossStall);
+        themePark.addToEverything(iceCreamStall);
+        themePark.addToEverything(tobaccoStall);
+        themePark.getAllClearances(visitor, dodgems);
+        assertEquals(4, themePark.getAllClearancesSize());
     }
 
 }

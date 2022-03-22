@@ -12,15 +12,17 @@ public class ThemePark {
     private String name;
     private ArrayList<Attraction> visitedAttractions;
     private ArrayList<IReviewed> everything;
-    private ArrayList<ISecurity> allowances;
     private HashMap<String, Integer> reviews;
+    private ArrayList<IReviewed> clearances;
+    private ISecurity check;
 
-    public ThemePark(String name) {
+    public ThemePark(String name, ISecurity check) {
         this.everything = new ArrayList<IReviewed>();
         this.visitedAttractions = new ArrayList<>();
         this.reviews = new HashMap<String, Integer>();
-        this.allowances = new ArrayList<>();
+        this.clearances = new ArrayList<>();
         this.name = name;
+        this.check = check;
     }
 
     public String getName() {
@@ -43,8 +45,8 @@ public class ThemePark {
         return this.everything.size();
     }
 
-    public int getAllAllowed(){
-        return this.allowances.size();
+    public int getAllClearancesSize(){
+        return this.clearances.size();
     }
 
     public void addToEverything(IReviewed place){
@@ -79,11 +81,12 @@ public class ThemePark {
         return reviews;
     }
 
-//    public ArrayList getAllAllowedFor(Visitor visitor){
-//        for (int i = 0; i < this.getAllAllowed(); i++) {
-//            ISecurity.isAllowedTo(visitor);
-//        }
-//    }
+    public ArrayList getAllClearances(Visitor visitor, ISecurity check){
+        for (int i = 0; i < this.getAllReviewed(); i++) {
+            if(review.isAllowedTo(visitor));
+            } clearances.add(check);
+        return clearances;
+    }
 
 
 }
